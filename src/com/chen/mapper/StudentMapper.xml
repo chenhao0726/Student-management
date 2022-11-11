@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	mapper: 根元素  sql配置文件的根元素只能是 mapper
+	namespace :命名空间	
+				告诉项目 通过什么路径能够找到我们的mapper文件		
+ -->
+<mapper namespace="com.chen.mapper.StudentMapper">
+    <!--
+		select:表示查询语句
+		id :  是这个sql的唯一标识 一般和mapper中的方法名一致
+		parameterType: 参数的类型
+		resultType: 返回值类型
+		怎么找到对应的sql语句
+		namespace + id
+	 -->
+<!--    Student selectById(Long id);-->
+    <select id="selectById" parameterType="long" resultType="student">
+        select stu.id, stu.`name`, stu.password, stu.age, stu.gender, stu.phone, stu.address, stu.class_id, cl.className from t_students as stu inner join t_class as cl WHERE stu.class_id=cl.id and stu.id=#{id}
+    </select>
+<!--    List<Student> queryAll();-->
+    <select id="queryAll" resultType="student">
+        select stu.id, stu.`name`, stu.password, stu.age, stu.gender, stu.phone, stu.address, stu.class_id, cl.className from t_students as stu inner join t_class as cl where stu.class_id=cl.id
+    </select>
+<!--    int save(Student student);-->
+    <insert id="save" parameterType="student">
+        insert into
+            t_students(`name`, password,age, gender, phone, address, class_id)
+        value (#{name}, #{password}, #{age}, #{gender}, #{phone}, #{address}, #{class_id})
+    </insert>
+<!--    int update(Student student);-->
+    <update id="update" parameterType="student">
+        update
+            t_students
+        set
+            `name`=#{name},
+            password=#{password},
+            age=#{age},
+            gender=#{gender},
+            phone=#{phone},
+            address=#{address},
+            class_id=#{class_id}
+        where
+            id=#{id}
+    </update>
+
+<!--    int deleteById(Long id);-->
+    <delete id="deleteById" parameterType="long">
+        delete from t_students where id=#{id}
+    </delete>
+</mapper>

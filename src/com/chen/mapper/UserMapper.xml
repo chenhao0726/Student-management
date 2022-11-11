@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	mapper: 根元素  sql配置文件的根元素只能是 mapper
+	namespace :命名空间	
+				告诉项目 通过什么路径能够找到我们的mapper文件		
+ -->
+<mapper namespace="com.chen.mapper.UserMapper">
+    <!--
+		select:表示查询语句
+		id :  是这个sql的唯一标识 一般和mapper中的方法名一致
+		parameterType: 参数的类型
+		resultType: 返回值类型
+		怎么找到对应的sql语句
+		namespace + id
+	 -->
+<!--    User selectByName(String name);-->
+    <select id="selectByName" parameterType="String" resultType="user">
+        select id, username, password from t_user where username=#{username}
+    </select>
+</mapper>
